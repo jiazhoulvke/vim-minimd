@@ -13,7 +13,6 @@ setlocal foldopen-=search
 setlocal foldtext=minimd#FoldText()
 setlocal fillchars=fold:\ 
 command! MiniMDToggleFold call minimd#ToggleFold(v:count)
-nmap <silent><buffer> <Space> :<C-u>MiniMDToggleFold<CR>
 
 " Formatting:
 setlocal formatoptions+=1tcqljn 
@@ -42,14 +41,8 @@ setlocal shiftwidth=4
 " Headers:
 command! MiniMDNext call minimd#HeaderMotion('F', v:count)
 command! MiniMDPrev call minimd#HeaderMotion('B', v:count)
-nmap <silent><buffer> <Tab> :<C-u>MiniMDNext<CR>
-nmap <silent><buffer> <S-Tab> :<C-u>MiniMDPrev<CR>
-nmap <silent><buffer> ]h :<C-u>MiniMDNext<CR>
-nmap <silent><buffer> [h :<C-u>MiniMDPrev<CR>
 command! MiniMDPromote call minimd#PromoteHeader()
 command! MiniMDDemote call minimd#DemoteHeader()
-nnoremap <silent><buffer> = :MiniMDPromote<CR>
-nnoremap <silent><buffer> - :MiniMDDemote<CR>
 
 " Motion:
 nmap j gj
@@ -57,5 +50,15 @@ nmap k gk
 
 " Tasks:
 command! MiniMDTaskToggle call minimd#TaskToggle()
+
+if !exists('g:minimd_no_mappings')
 nmap <silent><buffer> <CR> :MiniMDTaskToggle<CR>
 vmap <silent><buffer> <CR> :MiniMDTaskToggle<CR>
+nmap <silent><buffer> <Space> :<C-u>MiniMDToggleFold<CR>
+nmap <silent><buffer> <Tab> :<C-u>MiniMDNext<CR>
+nmap <silent><buffer> <S-Tab> :<C-u>MiniMDPrev<CR>
+nmap <silent><buffer> ]h :<C-u>MiniMDNext<CR>
+nmap <silent><buffer> [h :<C-u>MiniMDPrev<CR>
+nnoremap <silent><buffer> = :MiniMDPromote<CR>
+nnoremap <silent><buffer> - :MiniMDDemote<CR>
+end

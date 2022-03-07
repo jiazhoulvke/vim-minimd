@@ -53,6 +53,24 @@ Note that, according to `:help v:count`, the mappings for `MiniMDToggleFold`, `M
 
     nmap z :<C-u>MiniMDToggleFold<CR>
 
+use `let g:minimd_no_mappings=1` to disable default mappings.
+
+``` vim
+let g:minimd_no_mappings=1
+
+function! s:minimd_settings()
+	nmap <silent><buffer> ' :<C-u>MiniMDToggleFold<CR>
+	nmap <silent><buffer> <C-j> :<C-u>MiniMDNext<CR>
+	nmap <silent><buffer> <C-k> :<C-u>MiniMDPrev<CR>
+	nmap <silent><buffer> ]h :<C-u>MiniMDNext<CR>
+	nmap <silent><buffer> [h :<C-u>MiniMDPrev<CR>
+	nnoremap <silent><buffer> >> :MiniMDPromote<CR>
+	nnoremap <silent><buffer> << :MiniMDDemote<CR>
+endfunction
+
+autocmd! BufNew,BufRead *.md call s:minimd_settings()
+```
+
 ## Exporting Files
 
 Exports to other file types are best done with [Pandoc](https://pandoc.org) since Minimd strictly adheres to a subset of the overlap between [Pandoc's Markdown syntax](https://pandoc.org/MANUAL.html#pandocs-markdown) and [the Commonmark specification](https://spec.commonmark.org/).
